@@ -5,6 +5,8 @@
  */
 package Vistas;
 
+import java.awt.Color;
+
 /**
  *
  * @author Johan Sebastian Lasso Rivas y Juan Sebastian
@@ -16,6 +18,7 @@ public class Materia extends javax.swing.JFrame {
      */
     public Materia() {
         initComponents();
+        this.setBackground(Color.RED);
     }
 
     /**
@@ -47,6 +50,7 @@ public class Materia extends javax.swing.JFrame {
         cmbProfesor = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 255, 0));
         setMaximumSize(new java.awt.Dimension(851, 450));
         setMinimumSize(new java.awt.Dimension(851, 450));
 
@@ -66,12 +70,22 @@ public class Materia extends javax.swing.JFrame {
         lblSalon.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblSalon.setText("Salon:");
 
+        txtMateria.setBackground(new java.awt.Color(102, 102, 102));
+        txtMateria.setForeground(new java.awt.Color(255, 255, 255));
         txtMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMateriaActionPerformed(evt);
             }
         });
 
+        txtNombre.setBackground(new java.awt.Color(102, 102, 102));
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtHorario.setBackground(new java.awt.Color(102, 102, 102));
+        txtHorario.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtSalon.setBackground(new java.awt.Color(102, 102, 102));
+        txtSalon.setForeground(new java.awt.Color(255, 255, 255));
         txtSalon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSalonActionPerformed(evt);
