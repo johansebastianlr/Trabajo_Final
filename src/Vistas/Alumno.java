@@ -54,6 +54,15 @@ public class Alumno extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(851, 450));
         setMinimumSize(new java.awt.Dimension(851, 450));
 
+        txtDireccion.setBackground(new java.awt.Color(102, 102, 102));
+        txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtFechaIngreso.setBackground(new java.awt.Color(102, 102, 102));
+        txtFechaIngreso.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtTelefono.setBackground(new java.awt.Color(102, 102, 102));
+        txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
+
         lblIdAlumno.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblIdAlumno.setText("Alumno:");
 
@@ -66,12 +75,22 @@ public class Alumno extends javax.swing.JFrame {
         lblApellidoMaterno.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblApellidoMaterno.setText("Apellido Materno:");
 
+        txtIdAlumno.setBackground(new java.awt.Color(102, 102, 102));
+        txtIdAlumno.setForeground(new java.awt.Color(255, 255, 255));
         txtIdAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdAlumnoActionPerformed(evt);
             }
         });
 
+        txtNombre.setBackground(new java.awt.Color(102, 102, 102));
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtApellidoPaterno.setBackground(new java.awt.Color(102, 102, 102));
+        txtApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
+
+        txtApellidoMaterno.setBackground(new java.awt.Color(102, 102, 102));
+        txtApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
         txtApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtApellidoMaternoActionPerformed(evt);
