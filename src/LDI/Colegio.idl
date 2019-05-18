@@ -1,0 +1,17 @@
+module Colegios {
+    interface Colegio{
+        
+        boolean insertarColegio(in long idColegio, in wstring nombre, in wstring direccion, in wstring telefono, in wstring correo);
+        
+        boolean actualizarColegio(in long idColegio, in wstring nombre, in wstring direccion, in wstring telefono, in wstring correo);
+        
+        boolean eliminarColegio(in long idColegio);
+        
+        wstring consultarColegio(in long idColegio);
+       
+        oneway void shutdown();
+        
+    };
+
+};
+
