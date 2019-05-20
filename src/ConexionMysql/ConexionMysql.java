@@ -13,8 +13,8 @@ public class ConexionMysql {
     public Connection conectar(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conex = DriverManager.getConnection("jdbc:mysql://localhost/basecolegio","root","corhuila2018");
-            System.out.println("Conexión Exitosa");
+            conex = DriverManager.getConnection("jdbc:mysql://localhost/basecolegio","root","");
+            //System.out.println("Conexión Exitosa");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lo sentimos, ha sucedido un problema inesperado con la conexión");
         }

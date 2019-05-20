@@ -1,4 +1,4 @@
-package LDI.Colegios;
+package Colegios;
 
 
 /**

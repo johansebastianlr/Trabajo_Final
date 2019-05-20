@@ -1,4 +1,4 @@
-package LDI.Colegios;
+package Colegios;
 
 
 /**
@@ -9,7 +9,7 @@ package LDI.Colegios;
 */
 
 public abstract class ColegioPOA extends org.omg.PortableServer.Servant
- implements LDI.Colegios.ColegioOperations, org.omg.CORBA.portable.InvokeHandler
+ implements Colegios.ColegioOperations, org.omg.CORBA.portable.InvokeHandler
 {
 
   // Constructors

@@ -1,4 +1,4 @@
-package LDI.Colegios;
+package Colegios;
 
 
 /**
@@ -8,7 +8,7 @@ package LDI.Colegios;
 * domingo 12 de mayo de 2019 04H05' COT
 */
 
-public class _ColegioStub extends org.omg.CORBA.portable.ObjectImpl implements LDI.Colegios.Colegio
+public class _ColegioStub extends org.omg.CORBA.portable.ObjectImpl implements Colegios.Colegio
 {
 
   public boolean insertarColegio (int idColegio, String nombre, String direccion, String telefono, String correo)

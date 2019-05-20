@@ -1,4 +1,4 @@
-package LDI.Colegios;
+package Colegios;
 
 /**
 * Colegios/ColegioHolder.java .
@@ -9,30 +9,30 @@ package LDI.Colegios;
 
 public final class ColegioHolder implements org.omg.CORBA.portable.Streamable
 {
-  public LDI.Colegios.Colegio value = null;
+  public Colegios.Colegio value = null;
 
   public ColegioHolder ()
   {
   }
 
-  public ColegioHolder (LDI.Colegios.Colegio initialValue)
+  public ColegioHolder (Colegios.Colegio initialValue)
   {
     value = initialValue;
   }
 
   public void _read (org.omg.CORBA.portable.InputStream i)
   {
-    value = LDI.Colegios.ColegioHelper.read (i);
+    value = Colegios.ColegioHelper.read (i);
   }
 
   public void _write (org.omg.CORBA.portable.OutputStream o)
   {
-    LDI.Colegios.ColegioHelper.write (o, value);
+        Colegios.ColegioHelper.write (o, value);
   }
 
   public org.omg.CORBA.TypeCode _type ()
   {
-    return LDI.Colegios.ColegioHelper.type ();
+    return Colegios.ColegioHelper.type ();
   }
 
 }
