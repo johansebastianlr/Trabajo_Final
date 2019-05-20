@@ -1,9 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
+
+import ComboBox.InformacionColegio;
+import ProgramacionTablas.*;
+import java.sql.ResultSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,11 +14,21 @@ package Vistas;
  */
 public class Profesor extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Profesor
-     */
+    //Variables Globales
+    private DefaultTableModel modelo;
+    //almacena el indice (fila) del JTable.
+    public int indiceFila; 
+    
+    
     public Profesor() {
         initComponents();
+        
+        InformacionColegio infColegio = new InformacionColegio();
+        
+        //Creamos un Objeto para obtener el modelo del comboBox
+        DefaultComboBoxModel objColegio = new DefaultComboBoxModel(infColegio.mostrarColegio());
+        cmbColegio.setModel(objColegio);
+        
     }
 
     /**
@@ -37,14 +50,10 @@ public class Profesor extends javax.swing.JFrame {
         txtApellidoMaterno = new javax.swing.JTextField();
         lblCedulaProfesional = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
-        lblTelefono = new javax.swing.JLabel();
-        lblMateriaqueImparte = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProfesor = new javax.swing.JTable();
         txtCedulaProfesional = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
-        txtMateriaqueImparte = new javax.swing.JTextField();
-        txtTelefono = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -98,12 +107,6 @@ public class Profesor extends javax.swing.JFrame {
         lblDireccion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblDireccion.setText("Direccion:");
 
-        lblTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblTelefono.setText("Telefono:");
-
-        lblMateriaqueImparte.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblMateriaqueImparte.setText("Materia que Imparte:");
-
         tblProfesor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -112,6 +115,11 @@ public class Profesor extends javax.swing.JFrame {
 
             }
         ));
+        tblProfesor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProfesorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProfesor);
 
         txtCedulaProfesional.setBackground(new java.awt.Color(102, 102, 102));
@@ -120,25 +128,44 @@ public class Profesor extends javax.swing.JFrame {
         txtDireccion.setBackground(new java.awt.Color(102, 102, 102));
         txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtMateriaqueImparte.setBackground(new java.awt.Color(102, 102, 102));
-        txtMateriaqueImparte.setForeground(new java.awt.Color(255, 255, 255));
-
-        txtTelefono.setBackground(new java.awt.Color(102, 102, 102));
-        txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
-
         jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("PROFESOR");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         lblColegio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblColegio.setText("Colegio:");
@@ -182,17 +209,9 @@ public class Profesor extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtApellidoMaterno))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblTelefono)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblDireccion)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtDireccion))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblMateriaqueImparte)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtMateriaqueImparte, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblApellidoPaterno)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,14 +279,7 @@ public class Profesor extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblDireccion)
                             .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTelefono)
-                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMateriaqueImparte)
-                            .addComponent(txtMateriaqueImparte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(62, 62, 62)))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
 
@@ -282,6 +294,298 @@ public class Profesor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoMaternoActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //Validación de cada una de las cajas de Texto (Campos vacios).
+
+        
+        if(cmbColegio.getSelectedIndex()== 0){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el nombre del Colegio" );
+            cmbColegio.requestFocus();
+            return;
+        }
+        
+        if(txtNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el nombre del Profesor" );
+            txtNombre.requestFocus();
+            return;
+        }
+        
+        if(txtApellidoPaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el apellido paterno" );
+            txtApellidoPaterno.requestFocus();
+            return;
+        }
+        if(txtApellidoMaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el apellido materno" );
+            txtApellidoMaterno.requestFocus();
+            return;
+        }
+        
+        if(txtApellidoMaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el apellido materno" );
+            txtApellidoMaterno.requestFocus();
+            return;
+        }
+        
+        if(txtCedulaProfesional.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita la cedula" );
+            txtCedulaProfesional.requestFocus();
+            return;
+        }
+        if(txtDireccion.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita la direccion" );
+            txtDireccion.requestFocus();
+            return;
+        }
+
+
+        TablaProfesor  objProfesor = new TablaProfesor();
+        
+        InformacionColegio objColegio = (InformacionColegio) cmbColegio.getSelectedItem();
+
+        //Declaración de las variables para obtener los valores que se encuentran en las cajas de texto
+        int idColegio = objColegio.getId();
+        String nombre = txtNombre.getText();
+        String apellidoPaterno = txtApellidoPaterno.getText();
+        String apellidoMaterno = txtApellidoMaterno.getText();
+        int cedula = Integer.parseInt(txtCedulaProfesional.getText());
+        String direccion = txtDireccion.getText();
+        
+        
+
+        try {
+            boolean resultado = objProfesor.insertarProfesor(idColegio, nombre, apellidoPaterno, apellidoMaterno, cedula, direccion);
+            if(resultado == true){
+                JOptionPane.showMessageDialog(null, "Se inserto un nuevo registro.");
+                //Utilizamos el objeto para limpiar todos los campos.
+                limpiarCampos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al insertar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado. ¡Por favor, vuelva a intentarlo!");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarCampos();
+        limpiarTabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        limpiarTabla();
+        getColumn();
+        cargarTabla();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         //Saber si la tabla esta vacia esto me permite decirle al Usuario que presione el boton de buscar registros.
+        
+        txtIdProfesor.setEditable(false);
+        
+        if(tblProfesor.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Por favor, Presione el botón de Bucar" );
+            return;
+        }
+
+        if (tblProfesor.getSelectedRow()== -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+            return;
+        }
+        
+        // Defino el modelo para el JTable
+        modelo = (DefaultTableModel) tblProfesor.getModel();
+        
+        TablaProfesor objProfesor = new TablaProfesor();
+        
+        try {
+             
+            // Asigno el indice del elemento seleccionado
+            indiceFila = tblProfesor.getSelectedRow();
+            // Elimino el registro del JTable
+            modelo.removeRow(indiceFila);
+   
+            
+            //Declaración de la vaiable para obtener el valor que se encuentra en la caja de texto correspondiente.
+            int idProfesor = Integer.parseInt(txtIdProfesor.getText());
+            boolean resultado = objProfesor.eliminarProfesor(idProfesor);
+            if (resultado == true) {
+                JOptionPane.showMessageDialog(null, "Se Eliminó el registro correctamente.");
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Eliminar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado ¡Por favor, vuelva a intentarlo!" + e);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblProfesorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProfesorMouseClicked
+        /* Evento para cuendo el usuario presione click en cualquier fila de la tabla. 
+           Lo que hará ese evento es poner todo los datos que hayan en la tabla en los distintos.
+           JtextFiel , JCombobox.
+        */
+        //Modelo para el JTable
+        modelo = (DefaultTableModel) tblProfesor.getModel();
+
+        // Asigno el elemento seleccionado de la tabla a los respectivos campos del formulario
+        try {
+            //Deshabilitar el campo de Codigo
+            txtIdProfesor.setEditable(false);
+            
+            InformacionColegio objClegio = new InformacionColegio();
+            
+
+            //Realizamos una Instanciación para el modelo del comboBox perteneciente a los Departamentos. 
+            DefaultComboBoxModel modeloColegio = new DefaultComboBoxModel(objClegio.mostrarColegio());
+            
+            txtIdProfesor.setText(String.valueOf(modelo.getValueAt(tblProfesor.getSelectedRow(), 0)));
+            
+            String colegio = (String) modelo.getValueAt(tblProfesor.getSelectedRow(), 1);
+            modeloColegio.setSelectedItem(colegio);
+            cmbColegio.setModel(modeloColegio);
+            
+            
+            txtNombre.setText((String)(modelo.getValueAt(tblProfesor.getSelectedRow(), 2)));
+            txtApellidoPaterno.setText((String) modelo.getValueAt(tblProfesor.getSelectedRow(), 3));
+            txtApellidoMaterno.setText((String) modelo.getValueAt(tblProfesor.getSelectedRow(), 4));
+            txtCedulaProfesional.setText(String.valueOf(modelo.getValueAt(tblProfesor.getSelectedRow(), 5)));
+            txtDireccion.setText((String) modelo.getValueAt(tblProfesor.getSelectedRow(), 6));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado al momento de seleccionar una fila ¡Por favor, vuelva a intentarlo!");
+        }
+    }//GEN-LAST:event_tblProfesorMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        //Validación de cada una de las cajas de Texto (Campos vacios).
+        
+        txtIdProfesor.setEditable(false);
+        
+        if(cmbColegio.getSelectedIndex()== 0){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el nombre del Colegio" );
+            cmbColegio.requestFocus();
+            return;
+        }
+        
+        if(txtNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el nombre del Profesor" );
+            txtNombre.requestFocus();
+            return;
+        }
+        
+        if(txtApellidoPaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el apellido paterno" );
+            txtApellidoPaterno.requestFocus();
+            return;
+        }
+        if(txtApellidoMaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el apellido materno" );
+            txtApellidoMaterno.requestFocus();
+            return;
+        }
+        
+        if(txtApellidoMaterno.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el apellido materno" );
+            txtApellidoMaterno.requestFocus();
+            return;
+        }
+        
+        if(txtCedulaProfesional.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita la cedula" );
+            txtCedulaProfesional.requestFocus();
+            return;
+        }
+        if(txtDireccion.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita la direccion" );
+            txtDireccion.requestFocus();
+            return;
+        }
+        
+        
+        
+        TablaProfesor  objProfesor = new TablaProfesor();
+        
+        InformacionColegio objColegio = (InformacionColegio) cmbColegio.getSelectedItem();
+       
+        //Declaración de las variables para obtener los valores que se encuentran en las cajas de texto
+        int idProfesor = Integer.parseInt(txtIdProfesor.getText());
+        int idColegio = objColegio.getId();
+        String nombre = txtNombre.getText();
+        String apellidoPaterno = txtApellidoPaterno.getText();
+        String apellidoMaterno = txtApellidoMaterno.getText();
+        int cedula = Integer.parseInt(txtCedulaProfesional.getText());
+        String direccion = txtDireccion.getText();
+        
+        boolean resultado = objProfesor.actualizarProfesor(idProfesor, idColegio, nombre, apellidoPaterno, apellidoMaterno,cedula,direccion);
+        if(resultado == true){
+            JOptionPane.showMessageDialog(null, "Se actualizó el registro.");
+            //Se realiza la limpieza al JTable
+            limpiarCampos();
+            //Se realiza la liempieza a los TexField, ComboBox etc.
+            limpiarTabla();
+            //Mostramos las columnas (La informacion que identifica a cada tabla en la BD)
+            getColumn();
+            //Actualizamos la tabla (Buscamos todos los registros)
+            cargarTabla();
+        }else{
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+        }  
+        
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void limpiarCampos(){
+        txtIdProfesor.setText("");
+        cmbColegio.setSelectedIndex(0);
+        txtNombre.setText("");
+        txtApellidoPaterno.setText("");
+        txtApellidoMaterno.setText("");
+        txtCedulaProfesional.setText("");
+        txtDireccion.setText("");
+        txtIdProfesor.setEditable(true);
+    }
+    private void limpiarTabla(){
+        // Defino el modelo para el JTable
+        DefaultTableModel modelo = (DefaultTableModel) tblProfesor.getModel();
+        
+        // Limpio las filas y las columnas de la tabla
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+    }
+    
+    
+    //Metodo para cargar las columnas en la tabla
+    private void getColumn() {
+        modelo = (DefaultTableModel) tblProfesor.getModel();
+        // Cargo las columnas de titulo al Jtable
+        modelo.addColumn("ID");
+        modelo.addColumn("Colegio");
+        modelo.addColumn("nombre");
+        modelo.addColumn("Apell. Paterno");
+        modelo.addColumn("Apell. Materno");
+        modelo.addColumn("Cedula");
+        modelo.addColumn("Direccion");
+    }
+    
+    //Metodo para cargar los registros en la tabla
+    private void cargarTabla() {
+        TablaProfesor objProfesor = new TablaProfesor();
+        //Se Identifica el modelo de la JTable
+        modelo = (DefaultTableModel) tblProfesor.getModel();
+        ResultSet resultado = objProfesor.cargarInfoProfesor();
+        try {
+            Object datos[] = new Object[7];
+            while (resultado.next()) {
+                for (int i = 0; i < 7; i++) {
+                    //Importante, el getObject tiene que ser mayor que 0 por ende se coloca el 1
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -332,17 +636,13 @@ public class Profesor extends javax.swing.JFrame {
     private javax.swing.JLabel lblColegio;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblIdProfesor;
-    private javax.swing.JLabel lblMateriaqueImparte;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblTelefono;
     private javax.swing.JTable tblProfesor;
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtCedulaProfesional;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtIdProfesor;
-    private javax.swing.JTextField txtMateriaqueImparte;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

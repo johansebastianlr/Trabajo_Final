@@ -1,0 +1,18 @@
+module Profesores {
+    interface Profesor{
+        
+        boolean insertarProfesor(in long idColegio, in wstring nombre, in wstring apellidoPaterno, in wstring apellidoMaterno, in long cedula, in wstring direccion);
+        
+        boolean actualizarProfesor(in long idProfesor, in long idColegio, in wstring nombre, in wstring apellidoPaterno, in wstring apellidoMaterno, in long cedula, in wstring direccion);
+        
+        boolean eliminarProfesor(in long idProfesor);
+        
+        wstring consultarProfesor(in long idProfesor);
+       
+        oneway void shutdown();
+        
+    };
+
+};
+
+
