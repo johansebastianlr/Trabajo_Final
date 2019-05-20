@@ -1,0 +1,17 @@
+module Materias {
+    interface Materia{
+        
+        boolean insertarMateria(in long idMateria, in wstring nombre, in wstring horario, in wstring salon, in long idProfesor);
+        
+        boolean actualizarMateria(in long idMateria, in wstring nombre, in wstring horario, in wstring salon, in long idProfesor);
+        
+        boolean eliminarMateria(in long idMateria);
+        
+        wstring consultarMateria(in long idMateria);
+       
+        oneway void shutdown();
+        
+    };
+
+};
+

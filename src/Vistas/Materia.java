@@ -5,7 +5,14 @@
  */
 package Vistas;
 
+import ComboBox.InformacionColegio;
+import ComboBox.InformacionProfesor;
+import ProgramacionTablas.*;
 import java.awt.Color;
+import java.sql.ResultSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +20,20 @@ import java.awt.Color;
  */
 public class Materia extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Materia
-     */
+    //Variables Globales
+    private DefaultTableModel modelo;
+    //almacena el indice (fila) del JTable.
+    public int indiceFila; 
+    
+    
     public Materia() {
         initComponents();
         this.setBackground(Color.RED);
+        InformacionProfesor infProfesor = new InformacionProfesor();
+        
+        //Creamos un Objeto para obtener el modelo del comboBox
+        DefaultComboBoxModel objProfesor = new DefaultComboBoxModel(infProfesor.mostrarProfesor());
+        cmbProfesor.setModel(objProfesor);
     }
 
     /**
@@ -35,7 +50,7 @@ public class Materia extends javax.swing.JFrame {
         lblNombre = new javax.swing.JLabel();
         lblHorario = new javax.swing.JLabel();
         lblSalon = new javax.swing.JLabel();
-        txtMateria = new javax.swing.JTextField();
+        txtIdMateria = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtHorario = new javax.swing.JTextField();
         txtSalon = new javax.swing.JTextField();
@@ -70,11 +85,11 @@ public class Materia extends javax.swing.JFrame {
         lblSalon.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblSalon.setText("Salon:");
 
-        txtMateria.setBackground(new java.awt.Color(102, 102, 102));
-        txtMateria.setForeground(new java.awt.Color(255, 255, 255));
-        txtMateria.addActionListener(new java.awt.event.ActionListener() {
+        txtIdMateria.setBackground(new java.awt.Color(102, 102, 102));
+        txtIdMateria.setForeground(new java.awt.Color(255, 255, 255));
+        txtIdMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMateriaActionPerformed(evt);
+                txtIdMateriaActionPerformed(evt);
             }
         });
 
@@ -100,17 +115,47 @@ public class Materia extends javax.swing.JFrame {
 
             }
         ));
+        tblMateria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMateriaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMateria);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         lblProfesor.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblProfesor.setText("Profesor:");
@@ -165,7 +210,7 @@ public class Materia extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                             .addComponent(lblNombre)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,7 +229,7 @@ public class Materia extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblIdMateria)
-                            .addComponent(txtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,9 +262,9 @@ public class Materia extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMateriaActionPerformed
+    private void txtIdMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdMateriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtMateriaActionPerformed
+    }//GEN-LAST:event_txtIdMateriaActionPerformed
 
     private void txtSalonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalonActionPerformed
         // TODO add your handling code here:
@@ -229,6 +274,262 @@ public class Materia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbProfesorActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //Validación de cada una de las cajas de Texto (Campos vacios).
+
+         if(txtIdMateria.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el codigo de la materia" );
+            txtIdMateria.requestFocus();
+            return;
+        }
+        
+        
+        if(txtNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el nombre de la materia" );
+            txtNombre.requestFocus();
+            return;
+        }
+        
+       
+        if(txtHorario.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el horario de la materia" );
+            txtHorario.requestFocus();
+            return;
+        }
+        
+        if(txtSalon.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el salon" );
+            txtSalon.requestFocus();
+            return;
+        }
+        
+        if(cmbProfesor.getSelectedIndex()== 0){
+            JOptionPane.showMessageDialog(null, "Por favor,selecciona un docente" );
+            cmbProfesor.requestFocus();
+            return;
+        }
+
+
+        TablaMateria  objMateria = new TablaMateria();
+        
+        InformacionProfesor objProfesor = (InformacionProfesor) cmbProfesor.getSelectedItem();
+
+        //Declaración de las variables para obtener los valores que se encuentran en las cajas de texto
+        int idMateria = Integer.parseInt(txtIdMateria.getText());
+        String nombre = txtNombre.getText();
+        String horario = txtHorario.getText();
+        String salon = txtSalon.getText();
+        int idProfesor = objProfesor.getId();
+
+        
+        
+
+        try {
+            boolean resultado = objMateria.insertarMateria(idMateria, nombre, horario, salon, idProfesor);
+            if(resultado == true){
+                JOptionPane.showMessageDialog(null, "Se inserto un nuevo registro.");
+                //Utilizamos el objeto para limpiar todos los campos.
+                limpiarCampos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al insertar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado. ¡Por favor, vuelva a intentarlo!");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        limpiarTabla();
+        getColumn();
+        cargarTabla();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+          
+        if(txtNombre.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el nombre de la materia" );
+            txtNombre.requestFocus();
+            return;
+        }
+        
+       
+        if(txtHorario.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el horario de la materia" );
+            txtHorario.requestFocus();
+            return;
+        }
+        
+        if(txtSalon.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor,digita el salon" );
+            txtSalon.requestFocus();
+            return;
+        }
+        
+        if(cmbProfesor.getSelectedIndex()== 0){
+            JOptionPane.showMessageDialog(null, "Por favor,selecciona un docente" );
+            cmbProfesor.requestFocus();
+            return;
+        }
+
+
+        TablaMateria  objMateria = new TablaMateria();
+        
+        InformacionProfesor objProfesor = (InformacionProfesor) cmbProfesor.getSelectedItem();
+
+        //Declaración de las variables para obtener los valores que se encuentran en las cajas de texto
+        int idMateria = Integer.parseInt(txtIdMateria.getText());
+        String nombre = txtNombre.getText();
+        String horario = txtHorario.getText();
+        String salon = txtSalon.getText();
+        int idProfesor = objProfesor.getId();
+        
+        boolean resultado = objMateria.actualizarMateria(idMateria, nombre, horario, salon, idProfesor);
+        if(resultado == true){
+            JOptionPane.showMessageDialog(null, "Se actualizó el registro.");
+            //Se realiza la limpieza al JTable
+            limpiarCampos();
+            //Se realiza la liempieza a los TexField, ComboBox etc.
+            limpiarTabla();
+            //Mostramos las columnas (La informacion que identifica a cada tabla en la BD)
+            getColumn();
+            //Actualizamos la tabla (Buscamos todos los registros)
+            cargarTabla();
+        }else{
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+        } 
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+         //Saber si la tabla esta vacia esto me permite decirle al Usuario que presione el boton de buscar registros.
+        
+        
+        if(tblMateria.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Por favor, Presione el botón de Bucar" );
+            return;
+        }
+
+        if (tblMateria.getSelectedRow()== -1) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una fila");
+            return;
+        }
+        
+        // Defino el modelo para el JTable
+        modelo = (DefaultTableModel) tblMateria.getModel();
+        
+        TablaMateria objMateria = new TablaMateria();
+        
+        try {
+             
+            // Asigno el indice del elemento seleccionado
+            indiceFila = tblMateria.getSelectedRow();
+            // Elimino el registro del JTable
+            modelo.removeRow(indiceFila);
+   
+            
+            //Declaración de la vaiable para obtener el valor que se encuentra en la caja de texto correspondiente.
+            int idMateria = Integer.parseInt(txtIdMateria.getText());
+            boolean resultado = objMateria.eliminarMateria(idMateria);
+            if (resultado == true) {
+                JOptionPane.showMessageDialog(null, "Se Eliminó el registro correctamente.");
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Eliminar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado ¡Por favor, vuelva a intentarlo!" + e);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblMateriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMateriaMouseClicked
+         /* Evento para cuendo el usuario presione click en cualquier fila de la tabla. 
+           Lo que hará ese evento es poner todo los datos que hayan en la tabla en los distintos.
+           JtextFiel , JCombobox.
+        */
+        //Modelo para el JTable
+        modelo = (DefaultTableModel) tblMateria.getModel();
+
+        // Asigno el elemento seleccionado de la tabla a los respectivos campos del formulario
+        try {
+            //Deshabilitar el campo de Codigo
+            txtIdMateria.setEditable(false);
+            
+            InformacionProfesor objProfesor = new InformacionProfesor();
+            
+
+            //Realizamos una Instanciación para el modelo del comboBox perteneciente a los Departamentos. 
+            DefaultComboBoxModel modeloProfesor = new DefaultComboBoxModel(objProfesor.mostrarProfesor());
+            
+            txtIdMateria.setText(String.valueOf(modelo.getValueAt(tblMateria.getSelectedRow(), 0)));
+           
+            txtNombre.setText((String)(modelo.getValueAt(tblMateria.getSelectedRow(), 1)));
+            txtHorario.setText((String) modelo.getValueAt(tblMateria.getSelectedRow(), 2));
+            txtSalon.setText((String) modelo.getValueAt(tblMateria.getSelectedRow(), 3));
+            
+             
+            String profesor = (String) modelo.getValueAt(tblMateria.getSelectedRow(), 4);
+            modeloProfesor.setSelectedItem(profesor);
+            cmbProfesor.setModel(modeloProfesor);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado al momento de seleccionar una fila ¡Por favor, vuelva a intentarlo!");
+        }
+    }//GEN-LAST:event_tblMateriaMouseClicked
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarCampos();
+        limpiarTabla();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void limpiarCampos(){
+        txtIdMateria.setText("");
+        txtNombre.setText("");
+        txtHorario.setText("");
+        txtSalon.setText("");
+        cmbProfesor.setSelectedIndex(0);
+        txtIdMateria.setEditable(true);
+        txtIdMateria.requestFocus();
+    }
+    private void limpiarTabla(){
+        // Defino el modelo para el JTable
+        DefaultTableModel modelo = (DefaultTableModel) tblMateria.getModel();
+        
+        // Limpio las filas y las columnas de la tabla
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+    }
+    
+    
+    //Metodo para cargar las columnas en la tabla
+    private void getColumn() {
+        modelo = (DefaultTableModel) tblMateria.getModel();
+        // Cargo las columnas de titulo al Jtable
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Horario");
+        modelo.addColumn("Salon");
+        modelo.addColumn("Profesor");
+    }
+    
+    //Metodo para cargar los registros en la tabla
+    private void cargarTabla() {
+        TablaMateria objMateria = new TablaMateria();
+        //Se Identifica el modelo de la JTable
+        modelo = (DefaultTableModel) tblMateria.getModel();
+        ResultSet resultado = objMateria.cargarInfoMateria();
+        try {
+            Object datos[] = new Object[5];
+            while (resultado.next()) {
+                for (int i = 0; i < 5; i++) {
+                    //Importante, el getObject tiene que ser mayor que 0 por ende se coloca el 1
+                    datos[i] = resultado.getObject(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -280,7 +581,7 @@ public class Materia extends javax.swing.JFrame {
     private javax.swing.JLabel lblSalon;
     private javax.swing.JTable tblMateria;
     private javax.swing.JTextField txtHorario;
-    private javax.swing.JTextField txtMateria;
+    private javax.swing.JTextField txtIdMateria;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtSalon;
     // End of variables declaration//GEN-END:variables
