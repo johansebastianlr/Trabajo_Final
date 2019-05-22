@@ -1,25 +1,24 @@
 package ProgramacionTablas;
-import Profesores.*;
+import Registros.*;
 import ConexionMysql.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-
 /**
  *
- * @author Johan Sebastian Lasso Rivas y Juan Sebastian
+ * @author magne
  */
-public class TablaProfesor extends ProfesorPOA {
-
+public class TablaRegistro extends RegistroPOA{
+    
     //Instanciación de la clase ConexionBaseDato
     ConexionMysql objConect = new ConexionMysql(); 
-    
+
     @Override
-    public boolean insertarProfesor(int idColegio, String nombre, String apellidoPaterno, String apellidoMaterno, int cedula, String direccion) {
+    public boolean insertarRegistro(int idAlumno, int idMateria, int idProfesor) {
         boolean resultado = false;
         try {
-            String sql = "INSERT INTO profesores (fk_idColegio,nombre,apellidoPaterno,apellidoMaterno,cedula,direccion) VALUES ('"+idColegio+"','"+nombre+"','"+apellidoPaterno+"','"+apellidoMaterno+"','"+cedula+"','"+direccion+"')";
+            String sql = "INSERT INTO registro (fk_idAlumno,fk_idMateria,fk_idProfesor) VALUES ('"+idAlumno+"','"+idMateria+"','"+idProfesor+"')";
             objConect.conectar();
             Statement st = objConect.conex.createStatement();
             int valor = st.executeUpdate(sql);
@@ -37,10 +36,10 @@ public class TablaProfesor extends ProfesorPOA {
     }
 
     @Override
-    public boolean actualizarProfesor(int idProfesor, int idColegio, String nombre, String apellidoPaterno, String apellidoMaterno, int cedula, String direccion) {
+    public boolean actualizarRegistro(int id, int idAlumno, int idMateria, int idProfesor) {
         boolean resultado = false;
         try {
-            String sql = "UPDATE profesores SET fk_idColegio = '"+idColegio+"', nombre = '"+nombre+"', apellidoPaterno = '"+apellidoPaterno+"', apellidoMaterno = '"+apellidoMaterno+"', cedula = '"+cedula+"', direccion = '"+direccion+"' WHERE idProfesor = '"+idProfesor+"'";
+            String sql = "UPDATE registro SET fk_idAlumno = '"+idAlumno+"', fk_idMateria = '"+idMateria+"', fk_idProfesor = '"+idProfesor+"' WHERE id = '"+id+"'";
             //Se realiza la conexión con la base de datos
             objConect.conectar();
             Statement st = objConect.conex.createStatement();
@@ -58,10 +57,10 @@ public class TablaProfesor extends ProfesorPOA {
     }
 
     @Override
-    public boolean eliminarProfesor(int idProfesor) {
+    public boolean eliminarRegistro(int id) {
         boolean resultado = false;
         try {
-            String sql = "DELETE FROM profesores where idProfesor = " +idProfesor;
+            String sql = "DELETE FROM registro WHERE id = " +id;
             //Se realiza la conexión con la base de datos
             objConect.conectar();
             Statement st = objConect.conex.createStatement();
@@ -79,34 +78,17 @@ public class TablaProfesor extends ProfesorPOA {
     }
 
     @Override
-    public String consultarProfesor(int idProfesor) {
-        String resultado = "";
-        
-        try {
-            
-            String sqlConsultar = "Select * from profesores Where idProfesor = " + idProfesor;
-            //Se realiza la conexión con la base de datos
-            objConect.conectar();
-            Statement st = objConect.conex.createStatement();
-            ResultSet rs = st.executeQuery(sqlConsultar);
-            
-            while (rs.next()) {                
-                resultado += rs.getString(2) + " - " + rs.getString(3) + " - " + rs.getString(4);
-            }
-            
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-      
-        return resultado;    
+    public String consultarRegistro(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public ResultSet cargarInfoProfesor(){
+    
+     public ResultSet cargarInfoRegistro(){
         
        ResultSet resultado = null;
        
         try {
-            String sqlConsultar = "SELECT P.idProfesor, C.nombre, P.nombre, P.apellidoPaterno, P.apellidoMaterno, P.cedula, P.direccion  FROM profesores P, colegio C WHERE P.fk_idColegio = C.idColegio";
+            String sqlConsultar = "SELECT R.id,A.nombre, M.nombre, P.nombre FROM registro R, alumno A, materia M, profesores P WHERE R.fk_idAlumno = A.idAlumno AND R.fk_idMateria = M.idMateria AND R.fk_idProfesor = P.idProfesor;";
             //Se realiza la conexión con la base de datos
             objConect.conectar();
             Statement st = objConect.conex.createStatement();
@@ -117,7 +99,6 @@ public class TablaProfesor extends ProfesorPOA {
         }
        return resultado;
     }
-
 
     @Override
     public void shutdown() {

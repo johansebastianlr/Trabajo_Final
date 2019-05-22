@@ -56,11 +56,13 @@ public class Colegio extends javax.swing.JFrame {
         tblColegio = new javax.swing.JTable();
         txtCorreo = new javax.swing.JTextField();
         lblTelefono1 = new javax.swing.JLabel();
+        btnInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
-        setMaximumSize(new java.awt.Dimension(851, 450));
         setMinimumSize(new java.awt.Dimension(851, 450));
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Eras Bold ITC", 1, 36)); // NOI18N
@@ -78,15 +80,15 @@ public class Colegio extends javax.swing.JFrame {
 
         lblIdColegio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblIdColegio.setText("Codigo:");
-        getContentPane().add(lblIdColegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        getContentPane().add(lblIdColegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         lblNombre.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblNombre.setText("Nombre:");
-        getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         lblDireccion.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblDireccion.setText("Direccion:");
-        getContentPane().add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        getContentPane().add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         lblTelefono.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTelefono.setText("Telefono:");
@@ -99,15 +101,15 @@ public class Colegio extends javax.swing.JFrame {
                 txtIdColegioActionPerformed(evt);
             }
         });
-        getContentPane().add(txtIdColegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 155, -1));
+        getContentPane().add(txtIdColegio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 170, -1));
 
         txtNombre.setBackground(new java.awt.Color(102, 102, 102));
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 152, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 160, -1));
 
         txtDireccion.setBackground(new java.awt.Color(102, 102, 102));
         txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 139, -1));
+        getContentPane().add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 150, -1));
 
         txtTelefono.setBackground(new java.awt.Color(102, 102, 102));
         txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,7 +118,7 @@ public class Colegio extends javax.swing.JFrame {
                 txtTelefonoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 145, -1));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 150, -1));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,11 +178,20 @@ public class Colegio extends javax.swing.JFrame {
                 txtCorreoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 145, -1));
+        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 170, -1));
 
         lblTelefono1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTelefono1.setText("Correo:");
-        getContentPane().add(lblTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(lblTelefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/home-icon-silhouette.png"))); // NOI18N
+        btnInicio.setBorderPainted(false);
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 40, 70, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -383,6 +394,12 @@ public class Colegio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Lo sentimos, ocurrió algo inesperado ¡Por favor, vuelva a intentarlo!" + e);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Menu menu = new Menu();
+        menu.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnInicioActionPerformed
     
     private void limpiarCampos(){
         txtIdColegio.setText("");
@@ -474,6 +491,7 @@ public class Colegio extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

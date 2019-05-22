@@ -1,0 +1,16 @@
+module Registros {
+    interface Registro{
+        
+        boolean insertarRegistro(in long idAlumno,in long idMateria,in long idProfesor);
+        
+        boolean actualizarRegistro(in long id, in long idAlumno,in long idMateria,in long idProfesor);
+        
+        boolean eliminarRegistro(in long id);
+        
+        wstring consultarRegistro(in long id);
+       
+        oneway void shutdown();
+        
+    };
+
+};
